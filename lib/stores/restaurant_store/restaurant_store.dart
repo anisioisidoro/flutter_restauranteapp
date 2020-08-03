@@ -45,7 +45,7 @@ RestaurantModel _modelMap;
   @action
   Future<RestaurantModel> getAll() async {
     try {
-      loading = true;
+     
       _modelMap = await repository.getAll();
 
       temporaryDataMap = _modelMap;
@@ -63,11 +63,11 @@ RestaurantModel _modelMap;
 
         print(markers.length);
       }
-      loading = false;
+      
     } catch (e) {
-      loading = false;
+      
     } finally {
-      loading = false;
+      
     }
   }
 }

@@ -38,12 +38,17 @@ abstract class _UserStoreBase with Store {
 
   @action
   Future<LoginModel> login({LoginModel modelToJson}) async {
+
+    try {
+      loading = true;
     _model = await repository.login(modelToJson: modelToJson);
 
     if (_model.exito) {
       await storage.put(key: "token", value: _model.token);
       temporaryDataLogin = _model;
 
+      loading =false;
+  
       Navigator.pushAndRemoveUntil(
           globalKey.currentContext,
           MaterialPageRoute(builder: (BuildContext context) => HomePage()),
@@ -53,6 +58,11 @@ abstract class _UserStoreBase with Store {
         content: Text(_model.mensagem),
         backgroundColor: Colors.red,
       ));
+    }
+    } catch (e) {
+      loading =false;
+    }finally{
+      loading =false;
     }
   }
 

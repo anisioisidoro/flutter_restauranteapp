@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:restaurante_app/models/login_model.dart';
 import 'package:restaurante_app/pages/home_page/home_page.dart';
 import 'package:restaurante_app/repository/user_repository/user_repositroy.dart';
@@ -65,7 +66,15 @@ class _LoginWidgetState extends State<LoginWidget>
                 SizedBox(
                   height: 25,
                 ),
-                Container(
+
+                Observer(builder: (BuildContext context){
+
+                  if(_userStore.loading){
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }else{
+                    return Container(
                   width: 150,
                   child: RaisedButton(
                     color: Color(0xFFFED145B),
@@ -74,11 +83,8 @@ class _LoginWidgetState extends State<LoginWidget>
                       //   builder: (BuildContext context) => HomePage()
 
                       _userStore.login(
-                        modelToJson: LoginModel(
-                          telemovel: _telemovel.text,
-                          senha: _senha.text
-                        )
-                      );
+                          modelToJson: LoginModel(
+                              telemovel: _telemovel.text, senha: _senha.text));
                       // ));
                     },
                     child: Text(
@@ -88,7 +94,10 @@ class _LoginWidgetState extends State<LoginWidget>
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5)),
                   ),
-                ),
+                );
+                  }
+                }),
+                
                 Center(
                   child: Text(
                     "or",

@@ -53,7 +53,7 @@ Set<Polyline> _polyline = {};
                             initialCameraPosition: CameraPosition(
                                 target: LatLng(myLocalizetion?.latitude ?? -8.910128,
                                     myLocalizetion?.longitude ?? 13.206195),
-                                zoom: 5),
+                                zoom: 16),
                             onMapCreated: (GoogleMapController controller) async{
                               map_controller.complete(controller);
                                _controller =
